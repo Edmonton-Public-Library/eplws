@@ -110,3 +110,6 @@ calculator.js
 package-lock.json
 temp/*
 https/*
+
+# Contains the working rest calls for eplws.
+eplws.postman_collection.json
