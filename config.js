@@ -28,6 +28,7 @@ const configFile = './config/config.json';
 
 // The environment object of helper functions.
 const environment = {};
+environment.version = "0.0.1";
 
 // Staging environment object.
 const defaultServerSettings = {
@@ -49,8 +50,8 @@ const defaultServerSettings = {
     }
     if (config){
 
-        // Read in version from JSON and if it does not exist report '0.0' which could be diagnostic.
-        environment.version = typeof(config.version) === 'string' || typeof(config.version) === 'number' ? config.version : "0.0";
+        // Read in apiVersion from JSON and if it does not exist report '0.0' which could be diagnostic.
+        environment.apiVersion = typeof(config.apiVersion) === 'string' || typeof(config.apiVersion) === 'number' ? config.apiVersion : "0.0";
         // Test if the server should be in loopback mode for situations like outages.
         environment.loopbackMode = typeof(config.loopbackMode) === 'boolean' ? config.loopbackMode : false;
         // Test if the server should be in loopback mode for situations like outages.
@@ -71,11 +72,11 @@ const defaultServerSettings = {
 
 
 /**
- * Returns the version number of the json config file
+ * Returns the apiVersion number of the json config file
  * or '0.0' if one is not in the json config file.
  */
 environment.getVersion = function(){
-    return environment.version;
+    return environment.apiVersion;
 };
 
 /**
@@ -147,6 +148,14 @@ environment.useTestMode = function(){
  */
 environment.getEnvName = function(){
     return environment.serverConfig.envName;
+}
+
+/**
+ * 
+ * @returns the application version.
+ */
+environment.getVersion = function() {
+    return environment.version;
 }
 
 module.exports = environment;

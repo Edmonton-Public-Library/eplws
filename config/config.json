@@ -1,6 +1,6 @@
 {
     "application" : "eplws",
-    "version" : "1.0",
+    "apiVersion" : "1.0",
     "loopbackMode" : false,
     "testMode" : false,
     "production" : {
