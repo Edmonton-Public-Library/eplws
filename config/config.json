@@ -1,0 +1,24 @@
+{
+    "application" : "eplws",
+    "version" : "1.0",
+    "loopbackMode" : false,
+    "testMode" : false,
+    "production" : {
+        "httpPort" : 6003,
+        "httpsPort" : 7003,
+        "envName" : "production",
+        "directories" : {
+            "temp" : "../temp",
+            "certs" : "./https"
+        }
+    },
+    "staging" : {
+        "httpPort" : 6003,
+        "httpsPort" : 7003,
+        "envName" : "staging",
+        "directories" : {
+            "temp" : "../temp",
+            "certs" : "./https"
+        }
+    }
+}

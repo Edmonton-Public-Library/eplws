@@ -1,0 +1,24 @@
+{
+  "name": "eplws",
+  "version": "1.0.0",
+  "description": "Web services for EPL scripts and services.",
+  "main": "index.js",
+  "scripts": {
+    "fullTest": "clear;NODE_ENV=production node tests/test.js ./*-tests.js",
+    "test": "clear;node tests/test.js ./calculator-tests.js"
+  },
+  "keywords": [
+    "EPL",
+    "web",
+    "services"
+  ],
+  "author": "Andrew Nisbet",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0"
+  }
+}
