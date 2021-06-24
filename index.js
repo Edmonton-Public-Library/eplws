@@ -105,13 +105,23 @@ const unifiedServer = function(req, res) {
             // use the status defined by the handler or default to 200
             statusCode = typeof(statusCode) == 'number' ? statusCode : 200;
             // use the payload defined by the handler, or default to an empty object
-            
-            payload = typeof(payload) == 'object' ? payload : {};
-            // convert the payload from an object to a string.
-            let payloadString = JSON.stringify(payload);
-            // return the response
-            // Let the user know we are returning JSON
-            res.setHeader('Content-type', 'application/json');
+            let payloadString;
+            if (statusCode == 80) {
+                // Send back an static html page.
+                payload = typeof(payload) == 'string' ? payload : '';
+                payloadString = payload;
+                // return the response
+                // Let the user know we are returning JSON
+                res.setHeader('Content-type', 'text/html');
+                statusCode = 200;
+            } else {
+                payload = typeof(payload) == 'object' ? payload : {};
+                // convert the payload from an object to a string.
+                payloadString = JSON.stringify(payload);
+                // return the response
+                // Let the user know we are returning JSON
+                res.setHeader('Content-type', 'application/json');
+            }
             res.writeHead(statusCode);
             res.end(payloadString);
         });
@@ -121,5 +131,8 @@ const unifiedServer = function(req, res) {
 // definition of a request router.
 const router = {
     'status' : handlers.status,
-    'version' : handlers.version
+    'version' : handlers.version,
+    'index.html' : handlers.serveHtml,
+    'getuserpin.html' : handlers.serveHtml,
+    'getuserpin' : handlers.getUserPin
 };
