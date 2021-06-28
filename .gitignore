@@ -113,3 +113,4 @@ https/*
 
 # Contains the working rest calls for eplws.
 eplws.postman_collection.json
+*.pem
