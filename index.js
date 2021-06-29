@@ -27,12 +27,6 @@ const fs = require('fs');
 const handlers = require('./lib/handlers');
 const logger = require('./logger');
 
-// The key and cert locations for the https server.
-const httpsServerOptions = {
-    // since we want the file to be read before proceeding...
-    'key' : fs.readFileSync(config.getSSLKey()),
-    'cert' : fs.readFileSync(config.getSSLCertificate())
-};
 
 // Handle creating both http and https servers.
 const unifiedServer = function(req, res) {
@@ -116,6 +110,14 @@ httpServer.listen(config.getHttpPort(), function() {
     logger.info('Server listening on HTTP port '+config.getHttpPort()+', env: ' + config.getEnvName());
 });
 
+/** Uncomment this once certs installed on ILS.
+// The key and cert locations for the https server.
+const httpsServerOptions = {
+    // since we want the file to be read before proceeding...
+    'key' : fs.readFileSync(config.getSSLKey()),
+    'cert' : fs.readFileSync(config.getSSLCertificate())
+};
+
 const httpsServer = https.createServer(httpsServerOptions, function(req, res){
     unifiedServer(req, res);
 });
@@ -124,6 +126,8 @@ const httpsServer = https.createServer(httpsServerOptions, function(req, res){
 httpsServer.listen(config.getHttpsPort(), function() {
     logger.info('Server listening on HTTPS port ' + config.getHttpsPort() + ', env: ' + config.getEnvName());
 });
+*/
+
 
 // definition of a request router.
 const router = {
