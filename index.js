@@ -27,34 +27,12 @@ const fs = require('fs');
 const handlers = require('./lib/handlers');
 const logger = require('./logger');
 
-
-// The http server should respond to all requests with a string.
-const httpServer = http.createServer(function(req, res){
-    unifiedServer(req, res);
-});
-
-// Start the server and listen on port 3000
-httpServer.listen(config.getHttpPort(), function() {
-    logger.info('Server listening on HTTP port '+config.getHttpPort()+', env: ' + config.getEnvName());
-});
-
-// The https server.
+// The key and cert locations for the https server.
 const httpsServerOptions = {
     // since we want the file to be read before proceeding...
-    // 'key' : fs.readFileSync('./https/key.pem'),
-    // 'cert' : fs.readFileSync('./https/cert.pem')
     'key' : fs.readFileSync(config.getSSLKey()),
     'cert' : fs.readFileSync(config.getSSLCertificate())
 };
-
-const httpsServer = https.createServer(httpsServerOptions, function(req, res){
-    unifiedServer(req, res);
-});
-
-// Start the server and listen on port 3000
-httpsServer.listen(config.getHttpsPort(), function() {
-    logger.info('Server listening on HTTPS port ' + config.getHttpsPort() + ', env: ' + config.getEnvName());
-});
 
 // Handle creating both http and https servers.
 const unifiedServer = function(req, res) {
@@ -127,6 +105,25 @@ const unifiedServer = function(req, res) {
         });
     });
 };
+
+// The http server should respond to all requests with a string.
+const httpServer = http.createServer(function(req, res){
+    unifiedServer(req, res);
+});
+
+// Start the HTTP server and listen.
+httpServer.listen(config.getHttpPort(), function() {
+    logger.info('Server listening on HTTP port '+config.getHttpPort()+', env: ' + config.getEnvName());
+});
+
+const httpsServer = https.createServer(httpsServerOptions, function(req, res){
+    unifiedServer(req, res);
+});
+
+// Start the HTTPS server and listen.
+httpsServer.listen(config.getHttpsPort(), function() {
+    logger.info('Server listening on HTTPS port ' + config.getHttpsPort() + ', env: ' + config.getEnvName());
+});
 
 // definition of a request router.
 const router = {

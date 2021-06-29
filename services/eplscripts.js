@@ -5,11 +5,26 @@
 const { spawnSync } = require( 'child_process' );
 const eplScripts = {};
 
+/**
+ * Returns the pin of a given user by user ID.
+ * @param {*} userId 
+ * @returns 
+ */
 eplScripts.getUserPin = function(userId){
-    let cmd = spawnSync( 'getuserpin', [] );
-    // let cmd = spawnSync( 'ls', [ '-lh', '/usr' ] );
-    // const cmd = spawnSync( 'sleep', [ '5' ] );
+    let cmd = spawnSync( 'getuserpin', [`${userId}`] );
     return {"stdout":cmd.stdout.toString().split(/\r?\n/),"stderr":cmd.stderr.toString().split(/\r?\n/)};
 }
+
+/** Sample service */
+// /**
+//  * Lists the files in a directory as if 'ls' was called with '-lh' switches.
+//  * @param {*} dir 
+//  * @returns {stdout: "string", stderr: "string"}
+//  */
+// eplScripts.ls = function(dir){
+//     /** @TODO test params */
+//     let cmd = spawnSync( 'ls', [ '-lh', `${dir}` ] );
+//     return {"stdout":cmd.stdout.toString().split(/\r?\n/),"stderr":cmd.stderr.toString().split(/\r?\n/)};
+// }
 
 module.exports = eplScripts;
