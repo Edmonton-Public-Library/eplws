@@ -145,3 +145,32 @@ test('hasPosIntData() should return false for {}.".', () => {
     let possibleInt = {};
     assert.strictEqual(util.hasPosIntData(possibleInt), false);
 });
+
+// Test filtering of empty strings from array.
+test('Should return an empty array.', () => {
+    let myArray = [];
+    let expected= [];
+    assert.deepStrictEqual(util.filterEmptyStrings(myArray), expected);
+});
+test('Should return original string.', () => {
+    let data = 'some string';
+    let expected= 'some string';
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});
+test('Should return original string.', () => {
+    let data = 'some string';
+    let expected= 'some string';
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});
+test('Should return array without empty strings.', () => {
+    let data = [0, 1, null, 2, "string", 3, undefined, 3,,,,,, 4,, 4,, 5,, 6,,,,];
+    let expected= [0, 1, 2, "string", 3, 3, 4, 4, 5, 6];
+    // console.log("expected: ",expected);
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});
+test('Should return array without empty strings.', () => {
+    let data = ['',,,' '];
+    let expected= [' '];
+    // console.log("expected: ",expected);
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});

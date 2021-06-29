@@ -3,6 +3,7 @@
 'use strict';
 
 const { spawnSync } = require( 'child_process' );
+const utilityTests = require('../lib/util');
 const eplScripts = {};
 
 /**
@@ -11,8 +12,15 @@ const eplScripts = {};
  * @returns 
  */
 eplScripts.getUserPin = function(userId){
-    let cmd = spawnSync( 'getuserpin', [`${userId}`] );
-    return {"stdout":cmd.stdout.toString().split(/\r?\n/),"stderr":cmd.stderr.toString().split(/\r?\n/)};
+    // let cmd = spawnSync( 'getuserpin', [`${userId}`] );
+    let cmd = spawnSync( 'ls', ['-lh', '/home/anisbet'] );
+    let out = cmd.stdout.toString().split(/\r?\n/);
+    out = utilityTests.filterEmptyStrings(out);
+    let err = cmd.stderr.toString().split(/\r?\n/);
+    err = utilityTests.filterEmptyStrings(err);
+    console.log('stdout = ',out);
+    console.log('stderr = ',err);
+    return {"stdout":out,"stderr":err};
 }
 
 /** Sample service */
