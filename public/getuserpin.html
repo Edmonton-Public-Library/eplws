@@ -14,7 +14,7 @@
   <h1>getuserpin</h1>
   <p> </p>
   <p>
-    <code>getuserpin</code> can be invoked through a web service like <code>curl POST 'http://server:6003/getuserpin?{user_id}'</code> or with the form below.
+    <code>getuserpin</code> can be invoked through a web service like <code>curl -d "user_id=21221012345678" http://server:6003/getuserpin</code> or with the form below.
   </p>
   <form action = "/getuserpin" method = "POST">
     <label for="user_id"> ID: </label>

@@ -19,47 +19,19 @@
 
   <div class="mb-3">
     <ul class="list-group">
-      <li class="list-group-item"><a href="getuserpin.html">GET /getuserpin?{user_id}</a></li>
-      <!-- <li class="list-group-item"><a href="ping.html">GET /std/ping</a></li> -->
+      <li class="list-group-item"><a href="getuserpin.html">POST /getuserpin/{user_id}</a> or <code>curl -d "user_id=21221012345678" http://server:6003/getuserpin</code></li>
+      <li class="list-group-item"><a href="status">GET /status</a> returns the status of the web service.</li>
+      <li class="list-group-item"><a href="version">GET /version</a> shows the version of the API.</li>
     </ul>
   </div>
 
-  <!-- <div>
-    <ul class="list-group">
-      <li class="list-group-item"><a href="marc_export.html">GET /authority/marc/{beginDate}/{endDate}</a></li>
-      <li class="list-group-item"><a href="marc_update.html">POST /authority/marc/{requestId}/{type}</a></li>
-      <li class="list-group-item"><a href="backstage_upload.html">POST /authority/backstage/upload/{requestId}</a></li>
-      <li class="list-group-item"><a href="backstage_download.html">POST /authority/backstage/download/{requestId}</a></li>
-      <li class="list-group-item"><a href="marc_import.html">POST /authority/marc/{requestId}</a></li>
-    </ul>
-  </div> -->
-
-	<!-- <div class="alert alert-info mt-3 mb-3" role="alert">
-		Each API documentation page also includes a "Try it out" section. Use Chrome or Firefox for best result.
+	<div class="alert alert-info mt-3 mb-3" role="alert">
+		Use Chrome or Firefox for best results, but some apis don't have web pages. Use cURL, Postman, or similar.
 	</div>
 
-  <h2 class="mt-5">Workflow</h2>
-  <div>
-    <img alt="Authority Workflow" src="Authority_workflow.svg" style="height: 100%; width: 100%; object-fit: contain"/>
-  </div>
-  <p class="mt-5">
-    This workflow is not currently enforced at the moment, but can be enforced by the front-end.
-    Please refer to <a href="https://github.com/EPLibrary/SymphonyWrapper/blob/master/example/src/Request.js">https://github.com/EPLibrary/SymphonyWrapper/blob/master/example/src/Request.js</a>
-    for an example.
+  <h2 class="mt-5" >Repo</h2>
+  <p>
+    The repo can be found <a href="https://github.com/Edmonton-Public-Library/eplws">https://github.com/Edmonton-Public-Library/eplws</a>.
   </p>
-
-    <h2 class="mt-5" >Demo</h2>
-    <p>
-      A demo for using these APIs can be found <a href="https://github.com/EPLibrary/SymphonyWrapper/tree/master/example">https://github.com/EPLibrary/SymphonyWrapper/tree/master/example</a>.
-      Or <button id="demo">See it in action</button>.
-    </p> -->
-
-    <!-- <script type="text/javascript">
-        document.getElementById("demo").onclick = function () {
-          location.href = `http://${window.location.hostname}:${window.location.hostname === 'localhost' ? 6003 : 5000}`;
-        };
-    </script> -->
-
-
 </body>
 </html>
