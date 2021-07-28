@@ -12,8 +12,8 @@ const eplScripts = {};
  * @returns 
  */
 eplScripts.getUserPin = function(userId){
-    // let cmd = spawnSync( 'getuserpin', [`${userId}`] );
-    let cmd = spawnSync( 'ls', ['-lh', '/home/anisbet'] );
+    let cmd = spawnSync( 'getuserpin', [`${userId}`] );
+    // let cmd = spawnSync( 'ls', ['-lh', '/home/anisbet'] );
     let out = cmd.stdout.toString().split(/\r?\n/);
     out = utilityTests.filterEmptyStrings(out);
     let err = cmd.stderr.toString().split(/\r?\n/);
