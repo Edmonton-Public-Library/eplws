@@ -18,14 +18,36 @@
  */
  'use strict';
  
- const assert = require('assert');
+const assert = require('assert');
 const environment = require('../config');
- const eplscripts = require('../services/eplscripts');
+const eplscripts = require('../services/eplscripts');
 
-// eslint-disable-next-line no-undef
-test('Should return a dictionary of two empty arrays called "stdout" and "stderr" if config.json "testMode" is true, and the system command results otherwise.', () => {
+// // eslint-disable-next-line no-undef
+// test('Should return a dictionary of two empty arrays called "stdout" and "stderr" if config.json "testMode" is true, and the system command results otherwise.', () => {
+//     let result = {stdout: [],stderr: []};
+//     let actual = eplscripts.getStatus();
+//     if (environment.useTestMode()) {
+//         assert.deepStrictEqual(actual,result);
+//     } else {
+//         console.log(actual);
+//     }
+// });
+
+// test('Should return a dictionary of two empty arrays called "stdout" and "stderr" if config.json "testMode" is true, and the system command results otherwise.', () => {
+//     let result = {stdout: [],stderr: []};
+//     let actual = eplscripts.getUserPin("bogus");
+//     if (environment.useTestMode()) {
+//         assert.deepStrictEqual(actual,result);
+//     } else {
+//         console.log(actual);
+//     }
+// });
+
+test('Should return "stdout" and "stderr" from generalized command for getuserpin. In test mode stdout and stderr will be blank', () => {
     let result = {stdout: [],stderr: []};
-    let actual = eplscripts.getStatus();
+    // mockup for machines that don't have this script.
+    let userId = '21221012345678';
+    let actual = eplscripts.systemCmd('getuserpin',[userId]);
     if (environment.useTestMode()) {
         assert.deepStrictEqual(actual,result);
     } else {
@@ -33,9 +55,29 @@ test('Should return a dictionary of two empty arrays called "stdout" and "stderr
     }
 });
 
-test('Should return a dictionary of two empty arrays called "stdout" and "stderr" if config.json "testMode" is true, and the system command results otherwise.', () => {
+test('Should return "stdout" and "stderr" getstatus. In test mode stdout and stderr will be blank.', () => {
     let result = {stdout: [],stderr: []};
-    let actual = eplscripts.getUserPin("bogus");
+    let actual = eplscripts.systemCmd('getstatus');
+    if (environment.useTestMode()) {
+        assert.deepStrictEqual(actual,result);
+    } else {
+        console.log(actual);
+    }
+});
+
+test('Should return "stdout" and "stderr" of "false" command. In test mode stdout and stderr will be blank.', () => {
+    let result = {stdout: [],stderr: []};
+    let actual = eplscripts.systemCmd('blah');
+    if (environment.useTestMode()) {
+        assert.deepStrictEqual(actual,result);
+    } else {
+        console.log(actual);
+    }
+});
+
+test('Should return blank results for no command. In test mode stdout and stderr will be blank.', () => {
+    let result = {stdout: [],stderr: []};
+    let actual = eplscripts.systemCmd('');
     if (environment.useTestMode()) {
         assert.deepStrictEqual(actual,result);
     } else {

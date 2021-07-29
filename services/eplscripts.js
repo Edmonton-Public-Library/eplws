@@ -5,6 +5,7 @@
 const { spawnSync } = require( 'child_process' );
 const utilityTests = require('../lib/util');
 const environment = require('../config');
+const { hasArrayData } = require('../lib/util');
 const eplScripts = {};
 
 /** Sample service */
@@ -20,9 +21,10 @@ const eplScripts = {};
 // }
 
 // definition of a request router.
-eplScripts.commands = {
-    'status' : this.getStatus,
-    'getuserpin' : this.getUserPin
+const commands = {
+    'getstatus' : 'serverstatus.sh',
+    'getuserpin' : 'getuserpin',
+    'false' : 'false'                 // Default run the false command.
 };
 
 /**
@@ -30,52 +32,39 @@ eplScripts.commands = {
  * @param {*} cmd spawned with process's spawnSync method.
  * @returns dictionary object with stdout and stderr key value pairs.
  */
-const getCmdOutput = function(cmd) {
-    if (typeof(cmd) !== 'string') {
-        // guard that the system command exists and can be called as requested.
-        let out = cmd.stdout != null ? cmd.stdout.toString().split(/\r?\n/) : "<eplws error>";
-        out = utilityTests.filterEmptyStrings(out);
-        let err = cmd.stderr != null ? cmd.stderr.toString().split(/\r?\n/) : "command failed to run";
-        err = utilityTests.filterEmptyStrings(err);
-        if (environment.useTestMode()) {
-            console.log('stdout = ',out);
-            console.log('stderr = ',err);
-        }
-        return {"stdout":out,"stderr":err};
-    } else {
-        return {"stdout":"<eplws error>","stderr":"command failed to run"};
+const _getCmdOutput = function(cmd) {
+    let out = "eplws";
+    let err = "not an EPL web service";
+    // guard that the system command exists and can be called as requested.
+    out = cmd.stdout == null ? out : cmd.stdout.toString().split(/\r?\n/);
+    out = utilityTests.filterEmptyStrings(out);
+    err = cmd.stderr == null ? err : cmd.stderr.toString().split(/\r?\n/);
+    err = utilityTests.filterEmptyStrings(err);
+    if (environment.useTestMode()) {
+        console.log('stdout = ',out);
+        console.log('stderr = ',err);
     }
+    return {"stdout":out,"stderr":err};
 }
 
 /**
- * Returns the pin of a given user by user ID.
- * @param {*} userId 
- * @returns 
+ * A general implementation of a linux command and args, but restricted to 
+ * the commands listed in command{}.
+ * @param {*} command any linux command defined in the commands dictionary.
+ * @param {*} args 
+ * @returns stderr and stdout from the command run.
  */
-eplScripts.getUserPin = function(userId){
-    // This will allow us to use a standard system call rather than a specific ILS system call.
+eplScripts.systemCmd = function(command,args) {
+    // Only allow predefined commands to run otherwise use 'false' command as default.
+    let sysCommand = typeof(commands[command]) === 'undefined' ? commands['false'] : commands[command];
     let cmd;
     if (environment.useTestMode()) {
-        cmd = spawnSync( 'true', [] );
+        cmd = spawnSync('true', []);
     } else {
-        cmd = spawnSync( 'getuserpin', [`${userId}`] );
+        args = hasArrayData(args) ? args : [];
+        cmd = spawnSync(sysCommand, args);
     }
-    return getCmdOutput(cmd);
-}
-
-/**
- * Returns the pin of a given user by user ID.
- * @param {*} None 
- * @returns STDOUT message from the called script/application.
- */
- eplScripts.getStatus = function(){
-    let cmd;
-    if (environment.useTestMode()) {
-        cmd = spawnSync( 'true', [] );
-    } else {
-        cmd = spawnSync( 'serverstatus.sh', [] );
-    }
-    return getCmdOutput(cmd);
+    return _getCmdOutput(cmd);
 }
 
 module.exports = eplScripts;
