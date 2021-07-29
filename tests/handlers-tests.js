@@ -44,7 +44,7 @@ test('Should show status.', () => {
         },
      };
     handlers.status(data,(status,message) => {
-        assert.strictEqual(status,204);
+        assert.strictEqual(status,200);
         console.log(message);
     });
 });

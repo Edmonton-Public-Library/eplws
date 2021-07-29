@@ -35,6 +35,7 @@ test:
 	node ./tests/test.js ./util-tests.js
 	node ./tests/test.js ./date-tests.js
 	node ./tests/test.js ./handlers-tests.js
+	node ./tests/test.js ./eplws-tests.js
 
 util:
 	clear
