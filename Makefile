@@ -17,6 +17,10 @@
 #
 .PHONY: test run util config date handlers
 
+web-service:
+	clear
+	node ./tests/test.js ./eplws-tests.js
+
 handlers:
 	clear
 	node ./tests/test.js ./handlers-tests.js
@@ -31,6 +35,7 @@ test:
 	node ./tests/test.js ./util-tests.js
 	node ./tests/test.js ./date-tests.js
 	node ./tests/test.js ./handlers-tests.js
+	node ./tests/test.js ./eplws-tests.js
 
 util:
 	clear

@@ -28,7 +28,7 @@ const configFile = './config/config.json';
 
 // The environment object of helper functions.
 const environment = {};
-environment.version = "0.0.1";
+environment.version = "0.1.0";
 
 // Staging environment object.
 const defaultServerSettings = {

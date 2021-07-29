@@ -2,7 +2,7 @@
     "application" : "eplws",
     "apiVersion" : "1.0",
     "loopbackMode" : false,
-    "testMode" : true,
+    "testMode" : false,
     "production" : {
         "httpPort" : 6003,
         "httpsPort" : 7003,

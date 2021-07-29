@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "fullTest": "clear;NODE_ENV=production node tests/test.js ./*-tests.js",
-    "test": "clear;node tests/test.js ./calculator-tests.js"
+    "test": "clear;node tests/test.js ./eplws-tests.js"
   },
   "keywords": [
     "EPL",
