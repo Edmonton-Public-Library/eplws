@@ -17,14 +17,36 @@
  */
 // We use the assert standard library to make assertions
 const assert = require('assert');
-const { add, subtract } = require('../calculator');
+// const { add, subtract } = require('../calculator');
+
+// // We do not need to import the test functions since
+// // they are made global variables by test.js
+// test('should add two numbers', () => {
+//         assert.strictEqual(add(1, 2), 3);
+// });
+
+// test('should subtract two numbers', () => {
+//         assert.strictEqual(subtract(3, 2), 1)
+// });
+const calculator = require('../calculator');
 
 // We do not need to import the test functions since
 // they are made global variables by test.js
 test('should add two numbers', () => {
-        assert.strictEqual(add(1, 2), 3);
+        let add = calculator.add(1,2);
+        assert.strictEqual(add, 3);
+        console.log(">>",calculator.add(2,3));
 });
 
 test('should subtract two numbers', () => {
-        assert.strictEqual(subtract(3, 2), 1)
+        assert.strictEqual(calculator.sub(3, 2), 1);
+});
+
+test('should show count', () => {
+        assert.strictEqual(calculator.getCount(), 0);
+});
+
+test('should increment count', () => {
+        calculator.incCount();
+        assert.strictEqual(calculator.getCount(), 1);
 });

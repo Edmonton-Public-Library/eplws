@@ -2,7 +2,7 @@
 /**
  * This is the main server file for epl web services (not Symphony web services).
  * 
- * Copyright 2021 Andrew Nisbet, Edmonton Public Library
+ * Copyright 2023 Andrew Nisbet, Edmonton Public Library
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,7 +110,7 @@ httpServer.listen(config.getHttpPort(), function() {
     logger.info('Server listening on HTTP port '+config.getHttpPort()+', env: ' + config.getEnvName());
 });
 
-/** Uncomment this once certs installed on ILS.
+/** Uncomment this block once certs are installed on ILS.
 // The key and cert locations for the https server.
 const httpsServerOptions = {
     // since we want the file to be read before proceeding...
@@ -129,7 +129,7 @@ httpsServer.listen(config.getHttpsPort(), function() {
 */
 
 
-// definition of a request router.
+// Supported operations.
 const router = {
     'status' : handlers.status,
     'version' : handlers.version,
