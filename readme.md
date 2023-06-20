@@ -81,7 +81,7 @@ WantedBy=multi-user.target
 ## Service Without Admin Privileges
 A monstat script can be run by cron to monitor and restart the web service. Monstat stands for monitor status. It starts, restarts, and monitors services and will email if a service fails to start more than a specified number of times. [See here for more details](https://github.com/anisbet/monstat).
 
-Over all `monstat.sh` uses a commands file to run and then check if the process continues to run. The commands file can be called anything, and blank lines and lines that start with `#` are ignored.
+Over all [`monstat.sh`](https://github.com/anisbet/monstat) uses a commands file to run and then check if the process continues to run. The commands file can be called anything, and blank lines and lines that start with `#` are ignored.
 
 ```bash
 # The node process below runs the epl web service and is scheduled.
@@ -93,9 +93,9 @@ Over all `monstat.sh` uses a commands file to run and then check if the process 
 # You can add additional scripts here if desired.
 ```
 
-The commands file is placed in `/software/EDPL/Unicorn/EPLwork/cronjobscripts/Monstat/` directory, but `monstat.sh` can be run from anywhere.
+The commands file is placed in `/software/EDPL/Unicorn/EPLwork/cronjobscripts/Monstat/` directory, but [`monstat.sh`](https://github.com/anisbet/monstat) can be run from anywhere.
 
-Once set up `monstat.sh` will start and ensure the web service is running.
+Once set up [`monstat.sh`](https://github.com/anisbet/monstat) will start and ensure the web service is running.
 
 # Dot ENV
 Create a `.env` file in the project root directory and include the following variables.
