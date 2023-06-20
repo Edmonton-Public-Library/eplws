@@ -93,7 +93,7 @@ Over all `monstat.sh` uses a commands file to run and then check if the process 
 # You can add additional scripts here if desired.
 ```
 
-The commands file is placed in `/software/EDPL/Unicorn/EPLwork/cronjobscripts/Monstat/` directory, but `monstat.sh` can be fun from anywhere.
+The commands file is placed in `/software/EDPL/Unicorn/EPLwork/cronjobscripts/Monstat/` directory, but `monstat.sh` can be run from anywhere.
 
 Once set up `monstat.sh` will start and ensure the web service is running.
 
