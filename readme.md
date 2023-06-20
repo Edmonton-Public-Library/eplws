@@ -23,14 +23,14 @@ There is a plan to Docker-ize this but that work is out of scope for the current
 1. Ensure a recent version of [NodeJS is installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 2. Create a directory where the server will live (```$EPLWS_HOME``` from here on).
 3. Clone the [eplws repo](https://github.com/Edmonton-Public-Library/eplws) in ```$EPLWS_HOME```. If you install from a downloaded zip, the install directory will be `eplws-main`. I may refer to it as the project root as well.
-4. Install [dependencies](#eplws-dependencies) ```cd $EPLWS_HOME; npm install```
-5. Create a [```.env```](#dot-env) file in root directory (same directory as the `index.js` file). See here for an [example](#dot-env).
-   1. Install certs in `https/` directory, if using wild-card certs.
-   2. Include and update `EPLWS_SSL_PRIVATE_KEY` and `EPLWS_SSL_CERTIFICATE` paths to either the `https/` directory or the domain certs for the server.
-   3. Update `UPATH` and `PATH` for your system. There are reasonable values set in the [```.env```](#dot-env) file.
-6. Update `config.js` with any changes to `httpPort`, `httpsPort`, and `envName`.
-7. On Linux, [create a service to run epl web services](#linux-service-setup).
-8.  [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
+4. Install [dependencies](#eplws-dependencies) ```cd $EPLWS_HOME; npm install```.
+5. Create and Install certificates in `https/` directory, if using wild-card certs, or [here](#http-and-https) if the server has domain certificates.
+6. Create a [```.env```](#dot-env) file in root directory (same directory as the `index.js` file). See here for an [example](#dot-env).
+   1. Include and update `EPLWS_SSL_PRIVATE_KEY` and `EPLWS_SSL_CERTIFICATE` paths to either the `https/` directory for [wild-card certificates](#wild-card-certs) **or** the [domain certs](#domain-certs) for the server.
+   2. Update `UPATH` and `PATH` for your system. There are reasonable values set in the [```.env```](#dot-env) file.
+7. Update `config.js` with any changes to `httpPort`, `httpsPort`, and `envName`.
+8. On Linux, create either a [`systemctl` service](#linux-service-setup) **or** run it with [non-admin privileges](#service-without-admin-privileges).
+9.  [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
 
 ## Linux Service Setup
 1. Create a [```eplws.service```](#example-service-file) file, as per this [example](#example-service-file).
@@ -43,19 +43,46 @@ There is a plan to Docker-ize this but that work is out of scope for the current
 4. Test with ```http://server:port/status```
 
 
-## HTTP and HTTPS
+# HTTPS
+## Wild Card Certs
 The server can run with either http or https. If https is desired, ensure SSL key and certificate are installed correctly, and up-to-date.
 
-### Certificates
-Set the following variables to the values for your server. Generate your own wildcard certs and place them in desired directory, then set the variables below to match. Alternatively point these variables to the domain certs on the machine running the service.
+As of February 2021 you can create a self-signed certificate and key with the following.
+
+<pre>
+openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+Generating a RSA private key
+......................................+++++
+...................................+++++
+writing new private key to 'key.pem'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CA
+State or Province Name (full name) [Some-State]:Ontario
+Locality Name (eg, city) []:Waterloo
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Dev-ILS
+Organizational Unit Name (eg, section) []:ITS
+Common Name (e.g. server FQDN or YOUR name) []:localhost
+Email Address []:someone@example.com
+</pre>
+
+Note the required changes for you site.
+
+Once generated, you can place wildcard certs in any desired directory, but there is a `https` directory for them included in the project. See [here](#dot-env) for a complete example of the `.env` file.
+
+See the README.md document in `https` directory for information on how to create wild-card certificates.
+
+## Domain Certs
 ```javascript
 EPLWS_SSL_PRIVATE_KEY=/etc/ssl/private/eplwild.key
 EPLWS_SSL_CERTIFICATE=/etc/ssl/certs/eplwild.crt
 ```
-See [here](#dot-env) for a complete example of the `.env` file.
-
-See the README.md document in https directory for information on how to create wild-card certificates.
-
 ## eplws Dependencies
 At this time there are only two dependencies; [Winston](https://www.npmjs.com/package/winston) and [dotenv](https://www.npmjs.com/package/dotenv). This may change, but the documentation may not, so always reference the ```package.json``` for more information.
 
@@ -99,8 +126,8 @@ Once set up [`monstat.sh`](https://github.com/anisbet/monstat) will start and en
 # Dot ENV
 Create a `.env` file in the project root directory and include the following variables.
 ```javascript
-EPLWS_SSL_PRIVATE_KEY=/software/EDPL/Unicorn/EPLwork/eplws/https/key.pem
-EPLWS_SSL_CERTIFICATE=/software/EDPL/Unicorn/EPLwork/eplws/https/cert.pem
+EPLWS_SSL_PRIVATE_KEY=/software/EDPL/Unicorn/EPLwork/eplws/eplws-main/https/key.pem
+EPLWS_SSL_CERTIFICATE=/software/EDPL/Unicorn/EPLwork/eplws/eplws-main/https/cert.pem
 /* Change these as required. UPATH for Symphony tools. */
 UPATH=/software/EDPL/Unicorn/Bin:/software/EDPL/Unicorn/Bincustom
 PATH=/software/EDPL/Unicorn/Bin:/software/EDPL/Unicorn/Bincustom:/usr/bin:/usr/sbin/:/bin:.
