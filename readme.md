@@ -22,11 +22,16 @@ Copyright 2021 Andrew Nisbet and Edmonton Public Library
 There is a plan to Docker-ize this but that work is out of scope for the current version of the project. That being said, here are the instructions for installing EPL's web services.
 1. Ensure a recent version of [NodeJS is installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 2. Create a directory where the server will live (```$EPLWS_HOME``` from here on).
-3. Clone the [eplws repo](https://github.com/Edmonton-Public-Library/eplws) in ```$EPLWS_HOME```.
+3. Clone the [eplws repo](https://github.com/Edmonton-Public-Library/eplws) in ```$EPLWS_HOME```. If you install from a downloaded zip, the install directory will be `eplws-main`. I may refer to it as the project root as well.
 4. Install [dependencies](#eplws-dependencies) ```cd $EPLWS_HOME; npm install```
-5. Create a [```.env```](#dot-env) file as in this [example](#dot-env).
-6. On Linux, [create a service to run epl web services](#linux-service-setup).
-7. [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
+5. Create a [```.env```](#dot-env) file in root directory (same directory as the `index.js` file). See here for an [example](#dot-env).
+   1. Install certs in `https/` directory, if using wild-card certs.
+   2. Update `EPLWS_SSL_PRIVATE_KEY` and `EPLWS_SSL_CERTIFICATE` paths.
+   3. Update `UPATH` and `PATH` for your system. There are reasonable values set in the [```.env```](#dot-env) file.
+6. Update `config.js` with any changes to `httpPort`, `httpsPort`, and `envName`.
+7. Update the `.env` file with the path to certs, and full UPATH and PATH variables.
+8. On Linux, [create a service to run epl web services](#linux-service-setup).
+9.  [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
 
 ## Linux Service Setup
 1. Create a [```eplws.service```](#example-service-file) file, as per this [example](#example-service-file).
