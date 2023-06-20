@@ -50,6 +50,8 @@ EPLWS_SSL_CERTIFICATE=/etc/ssl/certs/eplwild.crt
 ```
 See [here](#dot-env) for a complete example of the `.env` file.
 
+See the README.md document in https directory for information on how to create wild-card certificates.
+
 ## eplws Dependencies
 At this time there are only two dependencies; [Winston](https://www.npmjs.com/package/winston) and [dotenv](https://www.npmjs.com/package/dotenv). This may change, but the documentation may not, so always reference the ```package.json``` for more information.
 
