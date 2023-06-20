@@ -26,12 +26,11 @@ There is a plan to Docker-ize this but that work is out of scope for the current
 4. Install [dependencies](#eplws-dependencies) ```cd $EPLWS_HOME; npm install```
 5. Create a [```.env```](#dot-env) file in root directory (same directory as the `index.js` file). See here for an [example](#dot-env).
    1. Install certs in `https/` directory, if using wild-card certs.
-   2. Update `EPLWS_SSL_PRIVATE_KEY` and `EPLWS_SSL_CERTIFICATE` paths.
+   2. Include and update `EPLWS_SSL_PRIVATE_KEY` and `EPLWS_SSL_CERTIFICATE` paths to either the `https/` directory or the domain certs for the server.
    3. Update `UPATH` and `PATH` for your system. There are reasonable values set in the [```.env```](#dot-env) file.
 6. Update `config.js` with any changes to `httpPort`, `httpsPort`, and `envName`.
-7. Update the `.env` file with the path to certs, and full UPATH and PATH variables.
-8. On Linux, [create a service to run epl web services](#linux-service-setup).
-9.  [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
+7. On Linux, [create a service to run epl web services](#linux-service-setup).
+8.  [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
 
 ## Linux Service Setup
 1. Create a [```eplws.service```](#example-service-file) file, as per this [example](#example-service-file).
